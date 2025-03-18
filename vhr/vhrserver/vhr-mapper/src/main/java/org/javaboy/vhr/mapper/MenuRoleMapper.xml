@@ -28,6 +28,9 @@
     delete from menu_role
     where id = #{id,jdbcType=INTEGER}
   </delete>
+  <delete id="deleteByMid">
+    delete from menu_role where mid=#{mid}
+  </delete>
   <insert id="insert" parameterType="org.javaboy.vhr.model.MenuRole" >
     insert into menu_role (id, mid, rid)
     values (#{id,jdbcType=INTEGER}, #{mid,jdbcType=INTEGER}, #{rid,jdbcType=INTEGER})

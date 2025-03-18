@@ -56,4 +56,19 @@ public class MenuService {
         Integer result = menuRoleMapper.insertRecord(rid, mids);
         return result==mids.length;
     }
+
+    public int addMenu(Menu menu) {
+        return menuMapper.insert(menu);
+    }
+
+    public int updateMenu(Menu menu) {
+        return menuMapper.updateByPrimaryKeySelective(menu);
+    }
+
+    @Transactional
+    public int deleteMenuById(Integer id) {
+        //先删除menu_role中的数据
+        menuRoleMapper.deleteByMid(id);
+        return menuMapper.deleteByPrimaryKey(id);
+    }
 }

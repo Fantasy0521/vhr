@@ -15,7 +15,7 @@ proxyObj['/'] = {
 module.exports = {
     devServer: {
         host: 'localhost',
-        port: 8180,
+        port: 8080,
         proxy: proxyObj
     },
     configureWebpack: config => {

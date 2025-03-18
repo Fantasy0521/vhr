@@ -19,6 +19,11 @@ public class SalaryController {
         return salaryService.getAllSalaries();
     }
 
+    @GetMapping("/department")
+    public List<Salary> getSalariesByDepartment(Integer departmentId) {
+        return salaryService.getSalariesByDepartment(departmentId);
+    }
+
     @PostMapping("/")
     public RespBean addSalary(@RequestBody Salary salary) {
         if (salaryService.addSalary(salary) == 1) {

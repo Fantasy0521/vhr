@@ -32,6 +32,9 @@
         from salary
         where id = #{id,jdbcType=INTEGER}
     </select>
+    <select id="getSalariesByDepartment" resultType="org.javaboy.vhr.model.Salary">
+        SELECT * FROM salary WHERE department_id = #{departmentId}
+    </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from salary
     where id = #{id,jdbcType=INTEGER}
