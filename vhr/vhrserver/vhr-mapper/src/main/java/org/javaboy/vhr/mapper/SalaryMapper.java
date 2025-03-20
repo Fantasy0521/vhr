@@ -22,4 +22,5 @@ public interface SalaryMapper {
 
     List<Salary> getSalariesByDepartment(@Param("departmentId") Integer departmentId);
 
+    Salary getSalaryByEid(Integer eid);
 }

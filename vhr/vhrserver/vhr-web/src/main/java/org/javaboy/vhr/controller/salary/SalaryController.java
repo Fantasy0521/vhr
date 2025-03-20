@@ -2,6 +2,7 @@ package org.javaboy.vhr.controller.salary;
 
 import org.javaboy.vhr.model.RespBean;
 import org.javaboy.vhr.model.Salary;
+import org.javaboy.vhr.model.vo.SalaryVo;
 import org.javaboy.vhr.service.SalaryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -22,6 +23,11 @@ public class SalaryController {
     @GetMapping("/department")
     public List<Salary> getSalariesByDepartment(Integer departmentId) {
         return salaryService.getSalariesByDepartment(departmentId);
+    }
+
+    @GetMapping("/employee")
+    public Salary getSalaryByEid(Integer eid) {
+        return salaryService.getSalaryByEid(eid);
     }
 
     @PostMapping("/")
@@ -47,4 +53,10 @@ public class SalaryController {
         }
         return RespBean.error("更新失败!");
     }
+
+    @GetMapping("/calculate")
+    public List<SalaryVo> calculateSalaries() {
+        return salaryService.calculateSalaries();
+    }
+
 }

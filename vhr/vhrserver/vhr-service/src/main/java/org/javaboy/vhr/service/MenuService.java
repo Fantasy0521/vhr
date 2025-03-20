@@ -65,4 +65,8 @@ public class MenuService {
         menuRoleMapper.deleteByMid(id);
         return menuMapper.deleteByPrimaryKey(id);
     }
+
+    public List<Menu> getByParentId(Integer pid) {
+        return menuMapper.getByParentId(pid);
+    }
 }

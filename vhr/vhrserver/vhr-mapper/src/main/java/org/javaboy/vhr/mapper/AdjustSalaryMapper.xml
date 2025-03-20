@@ -4,9 +4,9 @@
   <resultMap id="BaseResultMap" type="org.javaboy.vhr.model.AdjustSalary" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="eid" property="eid" jdbcType="INTEGER" />
-    <result column="asDate" property="asdate" jdbcType="DATE" />
-    <result column="beforeSalary" property="beforesalary" jdbcType="INTEGER" />
-    <result column="afterSalary" property="aftersalary" jdbcType="INTEGER" />
+    <result column="asDate" property="asDate" jdbcType="DATE" />
+    <result column="beforeSalary" property="beforeSalary" jdbcType="INTEGER" />
+    <result column="afterSalary" property="afterSalary" jdbcType="INTEGER" />
     <result column="reason" property="reason" jdbcType="VARCHAR" />
     <result column="remark" property="remark" jdbcType="VARCHAR" />
   </resultMap>
@@ -19,17 +19,19 @@
     from adjustsalary
     where id = #{id,jdbcType=INTEGER}
   </select>
+    <select id="getAllAdjustSalaries" resultType="org.javaboy.vhr.model.vo.AdjustSalaryVo">
+      select a.*,e.name from adjustsalary a  left join employee  e on a.eid=e.id
+    </select>
+  <select id="getByEid" resultType="org.javaboy.vhr.model.AdjustSalary">
+    select * from adjustsalary where eid=#{eid}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from adjustsalary
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="org.javaboy.vhr.model.AdjustSalary" >
-    insert into adjustsalary (id, eid, asDate, 
-      beforeSalary, afterSalary, reason, 
-      remark)
-    values (#{id,jdbcType=INTEGER}, #{eid,jdbcType=INTEGER}, #{asdate,jdbcType=DATE}, 
-      #{beforesalary,jdbcType=INTEGER}, #{aftersalary,jdbcType=INTEGER}, #{reason,jdbcType=VARCHAR}, 
-      #{remark,jdbcType=VARCHAR})
+  <insert id="insert" parameterType="org.javaboy.vhr.model.AdjustSalary">
+    INSERT INTO adjustsalary (eid, asDate, beforeSalary, afterSalary, reason, remark)
+    VALUES (#{eid}, #{asDate}, #{beforeSalary}, #{afterSalary}, #{reason}, #{remark})
   </insert>
   <insert id="insertSelective" parameterType="org.javaboy.vhr.model.AdjustSalary" >
     insert into adjustsalary
@@ -80,29 +82,29 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="org.javaboy.vhr.model.AdjustSalary" >
-    update adjustsalary
-    <set >
-      <if test="eid != null" >
-        eid = #{eid,jdbcType=INTEGER},
+  <update id="updateByPrimaryKeySelective" parameterType="org.javaboy.vhr.model.AdjustSalary">
+    UPDATE adjustsalary
+    <set>
+      <if test="eid != null">
+        eid = #{eid},
       </if>
-      <if test="asdate != null" >
-        asDate = #{asdate,jdbcType=DATE},
+      <if test="asDate != null">
+        asDate = #{asDate},
       </if>
-      <if test="beforesalary != null" >
-        beforeSalary = #{beforesalary,jdbcType=INTEGER},
+      <if test="beforeSalary != null">
+        beforeSalary = #{beforeSalary},
       </if>
-      <if test="aftersalary != null" >
-        afterSalary = #{aftersalary,jdbcType=INTEGER},
+      <if test="afterSalary != null">
+        afterSalary = #{afterSalary},
       </if>
-      <if test="reason != null" >
-        reason = #{reason,jdbcType=VARCHAR},
+      <if test="reason != null">
+        reason = #{reason},
       </if>
-      <if test="remark != null" >
-        remark = #{remark,jdbcType=VARCHAR},
+      <if test="remark != null">
+        remark = #{remark},
       </if>
     </set>
-    where id = #{id,jdbcType=INTEGER}
+    WHERE id = #{id}
   </update>
   <update id="updateByPrimaryKey" parameterType="org.javaboy.vhr.model.AdjustSalary" >
     update adjustsalary

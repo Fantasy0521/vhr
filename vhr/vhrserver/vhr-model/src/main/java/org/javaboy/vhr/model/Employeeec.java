@@ -2,6 +2,9 @@ package org.javaboy.vhr.model;
 
 import java.util.Date;
 
+/**
+ * 员工奖惩
+ */
 public class Employeeec {
     private Integer id;
 

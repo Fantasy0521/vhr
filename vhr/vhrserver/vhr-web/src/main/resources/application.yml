@@ -23,4 +23,4 @@ server:
     enabled: true
 fastdfs:
   nginx:
-    host: http://192.168.91.128/
+    host: http://127.0.0.1/

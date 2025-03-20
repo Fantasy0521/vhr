@@ -35,6 +35,17 @@
     <select id="getSalariesByDepartment" resultType="org.javaboy.vhr.model.Salary">
         SELECT * FROM salary WHERE department_id = #{departmentId}
     </select>
+    <select id="getSalaryByEid" resultType="org.javaboy.vhr.model.Salary">
+        select s.*
+        from
+            empsalary es
+        left join
+            salary s
+        on
+            es.sid = s.id
+        where
+            es.eid = #{eid}
+    </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from salary
     where id = #{id,jdbcType=INTEGER}

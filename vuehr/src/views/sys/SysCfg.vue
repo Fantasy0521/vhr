@@ -9,7 +9,7 @@
         <el-table-column prop="name" label="菜单名称"></el-table-column>
         <el-table-column prop="path" label="路径"></el-table-column>
         <el-table-column prop="component" label="组件"></el-table-column>
-<!--        <el-table-column prop="iconCls" label="图标"></el-table-column>-->
+        <!--        <el-table-column prop="iconCls" label="图标"></el-table-column> -->
         <el-table-column prop="url" label="URL"></el-table-column>
         <el-table-column prop="enabled" label="状态">
           <template slot-scope="scope">
@@ -38,23 +38,30 @@
         <el-form-item label="组件">
           <el-input v-model="menu.component"></el-input>
         </el-form-item>
-<!--        <el-form-item label="图标">-->
-<!--          <el-input v-model="menu.iconCls"></el-input>-->
-<!--        </el-form-item>-->
+        <!--        <el-form-item label="图标"> -->
+        <!--          <el-input v-model="menu.iconCls"></el-input> -->
+        <!--        </el-form-item> -->
         <el-form-item label="URL">
           <el-input v-model="menu.url"></el-input>
         </el-form-item>
-        <el-form-item label="父菜单ID">
-          <el-input v-model="menu.parentId"></el-input>
+        <el-form-item label="父菜单">
+          <el-select v-model="menu.parentId" placeholder="请选择父菜单">
+            <el-option
+                v-for="item in parentMenuOptions"
+                :key="item.id"
+                :label="item.name"
+                :value="item.id">
+            </el-option>
+          </el-select>
         </el-form-item>
         <el-form-item label="状态">
           <el-switch v-model="menu.enabled" active-text="启用" inactive-text="禁用"></el-switch>
         </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
-                <el-button @click="dialogVisible = false">取消</el-button>
-                <el-button type="primary" @click="saveMenu">保存</el-button>
-            </span>
+        <el-button @click="dialogVisible = false">取消</el-button>
+        <el-button type="primary" @click="saveMenu">保存</el-button>
+      </span>
     </el-dialog>
   </div>
 </template>
@@ -67,6 +74,7 @@ export default {
       dialogVisible: false,
       dialogTitle: '添加菜单',
       menus: [],
+      parentMenuOptions: [],
       menu: {
         id: null,
         name: '',
@@ -81,6 +89,7 @@ export default {
   },
   mounted() {
     this.initMenus();
+    this.initParentMenuOptions();
   },
   methods: {
     showEditMenuView(data) {
@@ -120,6 +129,13 @@ export default {
       this.getRequest("/system/basic/menu/").then(resp => {
         if (resp) {
           this.menus = resp;
+        }
+      })
+    },
+    initParentMenuOptions() {
+      this.getRequest("/system/basic/menu/getByParentId?pid=1").then(resp => {
+        if (resp) {
+          this.parentMenuOptions = resp;
         }
       })
     },

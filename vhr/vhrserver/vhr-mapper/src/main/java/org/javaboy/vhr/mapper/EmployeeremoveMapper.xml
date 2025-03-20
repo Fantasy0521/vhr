@@ -19,7 +19,13 @@
     from employeeremove
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    <select id="getAllEmployeeremoves" resultType="org.javaboy.vhr.model.vo.EmployeeremoveVo">
+      select er.*, e.name from employeeremove er join employee e on er.eid=e.id
+    </select>
+    <select id="getByEid" resultType="org.javaboy.vhr.model.Employeeremove">
+      select * from employeeremove where eid=#{eid}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from employeeremove
     where id = #{id,jdbcType=INTEGER}
   </delete>

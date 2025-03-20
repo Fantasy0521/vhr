@@ -19,6 +19,9 @@
     from employeeec
     where id = #{id,jdbcType=INTEGER}
   </select>
+  <select id="getAllEmployeeecs" resultType="org.javaboy.vhr.model.vo.EmployeeecVo">
+      SELECT ec.*,e.name FROM employeeec ec left join employee e on ec.eid=e.id
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from employeeec
     where id = #{id,jdbcType=INTEGER}

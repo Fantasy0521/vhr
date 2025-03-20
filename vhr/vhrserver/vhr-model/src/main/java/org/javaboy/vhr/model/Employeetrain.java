@@ -2,6 +2,9 @@ package org.javaboy.vhr.model;
 
 import java.util.Date;
 
+/**
+ * 员工培训
+ */
 public class Employeetrain {
     private Integer id;
 

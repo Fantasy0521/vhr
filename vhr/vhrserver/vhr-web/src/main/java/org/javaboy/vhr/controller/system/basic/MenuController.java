@@ -47,6 +47,10 @@ public class MenuController {
         return RespBean.error("删除失败！");
     }
 
+    @GetMapping("/getByParentId")
+    public List<Menu> getByParentId(Integer pid) {
+        return menuService.getByParentId(pid);
+    }
 
 
 

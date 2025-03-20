@@ -2,6 +2,9 @@ package org.javaboy.vhr.model;
 
 import java.util.Date;
 
+/**
+ * 员工离职
+ */
 public class Employeeremove {
     private Integer id;
 

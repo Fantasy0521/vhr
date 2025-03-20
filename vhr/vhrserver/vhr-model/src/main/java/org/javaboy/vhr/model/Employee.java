@@ -5,6 +5,44 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import java.io.Serializable;
 import java.util.Date;
 
+/**
+ * 员工的基本信息
+ * 字段：
+ * id：员工ID。
+ * name：姓名。
+ * gender：性别。
+ * birthday：出生日期。
+ * idCard：身份证号。
+ * wedlock：婚姻状况。
+ * nationId：民族ID。
+ * nativePlace：籍贯。
+ * politicId：政治面貌ID。
+ * email：电子邮件。
+ * phone：电话。
+ * address：地址。
+ * departmentId：部门ID。
+ * jobLevelId：职称ID。
+ * posId：职位ID。
+ * engageForm：聘用形式。
+ * tiptopDegree：最高学历。
+ * specialty：专业。
+ * school：毕业院校。
+ * beginDate：入职日期。
+ * workState：工作状态。
+ * workID：工号。
+ * contractTerm：合同年限。
+ * conversionTime：转正日期。
+ * notWorkDate：离职日期。
+ * beginContract：合同起始日期。
+ * endContract：合同结束日期。
+ * workAge：工龄。
+ * nation：民族对象。
+ * politicsstatus：政治面貌对象。
+ * department：部门对象。
+ * jobLevel：职称对象。
+ * position：职位对象。
+ * salary：工资对象。
+ */
 public class Employee implements Serializable {
     private Integer id;
 

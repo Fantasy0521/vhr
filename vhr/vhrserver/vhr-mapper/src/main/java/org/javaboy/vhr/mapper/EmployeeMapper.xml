@@ -175,6 +175,11 @@
         from employee
         where id = #{id,jdbcType=INTEGER}
     </select>
+    <select id="getAllEmployees" resultMap="EmployeeWithSalary">
+        select * from employee e
+        left join empsalary es on e.id=es.eid
+        left join salary s on es.sid=s.id
+    </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from employee
     where id = #{id,jdbcType=INTEGER}

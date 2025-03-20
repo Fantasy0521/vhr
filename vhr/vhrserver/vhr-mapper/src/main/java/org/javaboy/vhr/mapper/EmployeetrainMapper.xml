@@ -17,7 +17,10 @@
     from employeetrain
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    <select id="getAllEmployeetrains" resultType="org.javaboy.vhr.model.vo.EmployeetrainVo">
+      select et.*, e.name from employeetrain et left join employee e on et.eid=e.id
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from employeetrain
     where id = #{id,jdbcType=INTEGER}
   </delete>
