@@ -1,6 +1,7 @@
 package org.javaboy.vhr.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import org.javaboy.vhr.model.vo.PaySalaryVo;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -150,6 +151,16 @@ public class Employee implements Serializable {
     private JobLevel jobLevel;
     private Position position;
     private Salary salary;
+
+    private PaySalaryVo paySalaryVo;
+
+    public PaySalaryVo getPaySalaryVo() {
+        return paySalaryVo;
+    }
+
+    public void setPaySalaryVo(PaySalaryVo paySalaryVo) {
+        this.paySalaryVo = paySalaryVo;
+    }
 
     public Salary getSalary() {
         return salary;

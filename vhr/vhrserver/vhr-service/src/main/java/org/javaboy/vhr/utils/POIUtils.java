@@ -6,6 +6,7 @@ import org.apache.poi.hssf.usermodel.*;
 import org.apache.poi.ss.usermodel.FillPatternType;
 import org.apache.poi.ss.usermodel.IndexedColors;
 import org.javaboy.vhr.model.*;
+import org.javaboy.vhr.model.vo.PaySalaryVo;
 import org.springframework.context.support.BeanDefinitionDslKt;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -208,6 +209,130 @@ public class POIUtils {
         }
         return new ResponseEntity<byte[]>(baos.toByteArray(), headers, HttpStatus.CREATED);
     }
+
+    /**
+     * 导出工资表
+     * @param list
+     * @return
+     */
+    public static ResponseEntity<byte[]> salaryExcel(List<Employee> list) {
+        //1. 创建一个 Excel 文档
+        HSSFWorkbook workbook = new HSSFWorkbook();
+        //2. 创建文档摘要
+        workbook.createInformationProperties();
+        //3. 获取并配置文档信息
+        DocumentSummaryInformation docInfo = workbook.getDocumentSummaryInformation();
+        //文档类别
+        docInfo.setCategory("员工工资信息");
+        //文档管理员
+        docInfo.setManager("javaboy");
+        //设置公司信息
+        docInfo.setCompany("www.javaboy.org");
+        //4. 获取文档摘要信息
+        SummaryInformation summInfo = workbook.getSummaryInformation();
+        //文档标题
+        summInfo.setTitle("员工工资表");
+        //文档作者
+        summInfo.setAuthor("javaboy");
+        // 文档备注
+        summInfo.setComments("本文档由 javaboy 提供");
+        //5. 创建样式
+        //创建标题行的样式
+        HSSFCellStyle headerStyle = workbook.createCellStyle();
+        headerStyle.setFillForegroundColor(IndexedColors.YELLOW.index);
+        headerStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+        HSSFSheet sheet = workbook.createSheet("员工工资表");
+        //设置列的宽度
+        sheet.setColumnWidth(0, 12 * 256);
+        sheet.setColumnWidth(1, 10 * 256);
+        sheet.setColumnWidth(2, 15 * 256);
+        sheet.setColumnWidth(3, 10 * 256);
+        sheet.setColumnWidth(4, 15 * 256);
+        sheet.setColumnWidth(5, 15 * 256);
+        sheet.setColumnWidth(6, 15 * 256);
+        sheet.setColumnWidth(7, 15 * 256);
+        sheet.setColumnWidth(8, 15 * 256);
+        sheet.setColumnWidth(9, 15 * 256);
+        sheet.setColumnWidth(10, 15 * 256);
+        sheet.setColumnWidth(11, 15 * 256);
+        sheet.setColumnWidth(12, 15 * 256);
+        //6. 创建标题行
+        HSSFRow r0 = sheet.createRow(0);
+        HSSFCell c0 = r0.createCell(0);
+        c0.setCellValue("姓名");
+        c0.setCellStyle(headerStyle);
+        HSSFCell c1 = r0.createCell(1);
+        c1.setCellStyle(headerStyle);
+        c1.setCellValue("工号");
+        HSSFCell c2 = r0.createCell(2);
+        c2.setCellStyle(headerStyle);
+        c2.setCellValue("所属部门");
+        HSSFCell c3 = r0.createCell(3);
+        c3.setCellStyle(headerStyle);
+        c3.setCellValue("职位");
+        HSSFCell c4 = r0.createCell(4);
+        c4.setCellStyle(headerStyle);
+        c4.setCellValue("职称");
+        HSSFCell c5 = r0.createCell(5);
+        c5.setCellStyle(headerStyle);
+        c5.setCellValue("岗位基础工资");
+        HSSFCell c6 = r0.createCell(6);
+        c6.setCellStyle(headerStyle);
+        c6.setCellValue("调整后基础工资");
+        HSSFCell c7 = r0.createCell(7);
+        c7.setCellStyle(headerStyle);
+        c7.setCellValue("工资账套");
+        HSSFCell c8 = r0.createCell(8);
+        c8.setCellStyle(headerStyle);
+        c8.setCellValue("应发工资");
+        HSSFCell c9 = r0.createCell(9);
+        c9.setCellStyle(headerStyle);
+        c9.setCellValue("养老金缴纳");
+        HSSFCell c10 = r0.createCell(10);
+        c10.setCellStyle(headerStyle);
+        c10.setCellValue("医疗保险缴纳");
+        HSSFCell c11 = r0.createCell(11);
+        c11.setCellStyle(headerStyle);
+        c11.setCellValue("公积金缴纳");
+        HSSFCell c12 = r0.createCell(12);
+        c12.setCellStyle(headerStyle);
+        c12.setCellValue("最终工资");
+
+        for (int i = 0; i < list.size(); i++) {
+            Employee emp = list.get(i);
+            PaySalaryVo paySalaryVo = emp.getPaySalaryVo();
+            Salary salary = emp.getSalary();
+            if (salary == null) {
+                continue;
+            }
+            HSSFRow row = sheet.createRow(i + 1);
+            row.createCell(0).setCellValue(emp.getName());
+            row.createCell(1).setCellValue(emp.getWorkID());
+            row.createCell(2).setCellValue(emp.getDepartment().getName());
+            row.createCell(3).setCellValue(emp.getPosition().getName());
+            row.createCell(4).setCellValue(emp.getJobLevel().getName());
+            row.createCell(5).setCellValue(salary.getBasicSalary());
+            row.createCell(6).setCellValue(salary.getAllSalary());
+            row.createCell(7).setCellValue(salary.getName());
+            row.createCell(8).setCellValue(paySalaryVo.getShouldPaySalary());
+            row.createCell(9).setCellValue(paySalaryVo.getPension());
+            row.createCell(10).setCellValue(paySalaryVo.getMedical());
+            row.createCell(11).setCellValue(paySalaryVo.getFund());
+            row.createCell(12).setCellValue(paySalaryVo.getFinalSalary());
+        }
+
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        HttpHeaders headers = new HttpHeaders();
+        try {
+            headers.setContentDispositionFormData("attachment", new String("员工工资表.xls".getBytes("UTF-8"), "ISO-8859-1"));
+            headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+            workbook.write(baos);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return new ResponseEntity<byte[]>(baos.toByteArray(), headers, HttpStatus.CREATED);
+    }
+
 
     /**
      * Excel 解析成 员工数据集合

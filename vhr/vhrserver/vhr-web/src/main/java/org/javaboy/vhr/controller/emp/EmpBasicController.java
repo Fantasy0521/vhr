@@ -97,6 +97,11 @@ public class EmpBasicController {
         List<Employee> list = (List<Employee>) employeeService.getEmployeeByPage(null, null, new Employee(),null).getData();
         return POIUtils.employee2Excel(list);
     }
+    @GetMapping("/exportSalary")
+    public ResponseEntity<byte[]> exportSalaryData() {
+        List<Employee> list = (List<Employee>) employeeService.getEmployeeByPage(null, null, new Employee(),null).getData();
+        return POIUtils.salaryExcel(list);
+    }
 
     @PostMapping("/import")
     public RespBean importData(MultipartFile file) throws IOException {

@@ -52,6 +52,22 @@
             <id column="posid" property="id"/>
             <result column="posname" property="name"/>
         </association>
+        <association property="salary" javaType="org.javaboy.vhr.model.Salary">
+            <id column="sid" property="id" jdbcType="INTEGER"/>
+            <result column="sbasicSalary" property="basicSalary" jdbcType="INTEGER"/>
+            <result column="sbonus" property="bonus" jdbcType="INTEGER"/>
+            <result column="slunchSalary" property="lunchSalary" jdbcType="INTEGER"/>
+            <result column="strafficSalary" property="trafficSalary" jdbcType="INTEGER"/>
+            <result column="sallSalary" property="allSalary" jdbcType="INTEGER"/>
+            <result column="spensionBase" property="pensionBase" jdbcType="INTEGER"/>
+            <result column="spensionPer" property="pensionPer" jdbcType="REAL"/>
+            <result column="screateDate" property="createDate" jdbcType="TIMESTAMP"/>
+            <result column="smedicalBase" property="medicalBase" jdbcType="INTEGER"/>
+            <result column="smedicalPer" property="medicalPer" jdbcType="REAL"/>
+            <result column="saccumulationFundBase" property="accumulationFundBase" jdbcType="INTEGER"/>
+            <result column="saccumulationFundPer" property="accumulationFundPer" jdbcType="REAL"/>
+            <result column="sname" property="name" jdbcType="VARCHAR"/>
+        </association>
     </resultMap>
     <sql id="Base_Column_List">
     id, name, gender, birthday, idCard, wedlock, nationId, nativePlace, politicId, email, 
@@ -106,10 +122,52 @@
         e.`departmentId`=d.`id` and e.`jobLevelId`=j.`id` and e.`posId`=pos.`id` and e.`id`=#{id}
     </select>
     <select id="getEmployeeByPage" resultMap="AllEmployeeInfo">
-        select e.*,p.`id` as pid,p.`name` as pname,n.`id` as nid,n.`name` as nname,d.`id` as did,d.`name` as
-        dname,j.`id` as jid,j.`name` as jname,pos.`id` as posid,pos.`name` as posname from employee e,nation
-        n,politicsstatus p,department d,joblevel j,position pos where e.`nationId`=n.`id` and e.`politicId`=p.`id` and
-        e.`departmentId`=d.`id` and e.`jobLevelId`=j.`id` and e.`posId`=pos.`id`
+        SELECT
+        e.*, s.id AS sid,
+        s. NAME AS sname,
+        s.basicSalary AS sbasicSalary,
+        s.bonus AS sbonus,
+        s.lunchSalary AS slunchSalary,
+        s.trafficSalary AS strafficSalary,
+        s.pensionBase AS spensionBase,
+        s.pensionPer AS spensionPer,
+        s.medicalBase AS smedicalBase,
+        s.medicalPer AS smedicalPer,
+        s.accumulationFundBase AS saccumulationFundBase,
+        s.accumulationFundPer AS saccumulationFundPer,
+        s.createDate AS screateDate,
+        p.`id` AS pid,
+        p.`name` AS pname,
+        n.`id` AS nid,
+        n.`name` AS nname,
+        d.`id` AS did,
+        d.`name` AS dname,
+        j.`id` AS jid,
+        j.`name` AS jname,
+        pos.`id` AS posid,
+        pos.`name` AS posname,
+
+        IF (
+        ads.afterSalary IS NOT NULL,
+        ads.afterSalary,
+        s.basicSalary
+        ) AS sallSalary
+        FROM
+        employee e
+        LEFT JOIN adjustsalary ads ON ads.eid = e.id
+        LEFT JOIN empsalary es ON e.id = es.eid
+        LEFT JOIN salary s ON es.sid = s.id,
+        nation n,
+        politicsstatus p,
+        department d,
+        joblevel j,
+        position pos
+        WHERE
+        e.`nationId` = n.`id`
+        AND e.`politicId` = p.`id`
+        AND e.`departmentId` = d.`id`
+        AND e.`jobLevelId` = j.`id`
+        AND e.`posId` = pos.`id`
         <if test="emp.name !=null and emp.name!=''">
             and e.name like concat('%',#{emp.name},'%')
         </if>
@@ -134,6 +192,7 @@
         <if test="beginDateScope !=null">
             and e.beginDate between #{beginDateScope[0]} and #{beginDateScope[1]}
         </if>
+        order by sid is not null desc
         <if test="page !=null and size!=null">
             limit #{page},#{size}
         </if>

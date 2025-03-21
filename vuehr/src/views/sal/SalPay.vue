@@ -21,8 +21,11 @@
           <el-button type="success" @click="exportData" icon="el-icon-download">
             导出数据
           </el-button>
-          <el-button type="primary" icon="el-icon-plus" @click="showAddEmpView">
-            添加用户
+<!--          <el-button type="primary" icon="el-icon-plus" @click="showAddEmpView">-->
+<!--            添加用户-->
+<!--          </el-button>-->
+          <el-button type="primary"  @click="payFinalSalary">
+            工资发放
           </el-button>
         </div>
       </div>
@@ -136,7 +139,46 @@
             width="100"
             label="职称">
         </el-table-column>
-
+        <el-table-column
+            prop="salary.basicSalary"
+            width="100"
+            label="岗位基础工资">
+        </el-table-column>
+        <el-table-column
+            prop="salary.allSalary"
+            width="120"
+            label="调整后基础工资">
+        </el-table-column>
+        <el-table-column
+            prop="salary.name"
+            width="120"
+            label="工资账套">
+        </el-table-column>
+        <el-table-column
+            prop="paySalaryVo.shouldPaySalary"
+            width="120"
+            label="应发工资">
+        </el-table-column>
+        <el-table-column
+            prop="paySalaryVo.pension"
+            width="120"
+            label="养老金缴纳">
+        </el-table-column>
+        <el-table-column
+            prop="paySalaryVo.medical"
+            width="120"
+            label="医疗保险缴纳">
+        </el-table-column>
+        <el-table-column
+            prop="paySalaryVo.fund"
+            width="120"
+            label="公积金缴纳">
+        </el-table-column>
+        <el-table-column
+            prop="paySalaryVo.finalSalary"
+            width="120"
+            label="最终工资">
+        </el-table-column>
       </el-table>
       <div style="display: flex;justify-content: flex-end">
         <el-pagination
@@ -374,7 +416,7 @@ export default {
       this.importDataDisabled = true;
     },
     exportData() {
-      window.open('/employee/basic/export', '_parent');
+      window.open('/employee/basic/exportSalary', '_parent');
     },
     emptyEmp() {
       this.emp = {
@@ -537,6 +579,9 @@ export default {
       this.title = '添加员工';
       this.getMaxWordID();
       this.dialogVisible = true;
+    },
+    payFinalSalary(){
+
     },
     initEmps(type) {
       this.loading = true;
