@@ -13,13 +13,17 @@
         <el-table-column prop="url" label="URL"></el-table-column>
         <el-table-column prop="enabled" label="状态">
           <template slot-scope="scope">
-            <el-tag :type="scope.row.enabled ? 'success' : 'danger'">{{ scope.row.enabled ? '启用' : '禁用' }}</el-tag>
+            <div v-if="scope.row.id !== 1 && scope.row.enabled !== null">
+              <el-tag :type="scope.row.enabled ? 'success' : 'danger'">{{ scope.row.enabled ? '启用' : '禁用' }}</el-tag>
+            </div>
           </template>
         </el-table-column>
         <el-table-column label="操作">
           <template slot-scope="scope">
-            <el-button @click="showEditMenuView(scope.row)">编辑</el-button>
-            <el-button type="danger" @click="deleteMenu(scope.row)">删除</el-button>
+            <div v-if="scope.row.id !== 1 && scope.row.enabled !== null">
+              <el-button @click="showEditMenuView(scope.row)">编辑</el-button>
+              <el-button type="danger" @click="deleteMenu(scope.row)">删除</el-button>
+            </div>
           </template>
         </el-table-column>
       </el-table>

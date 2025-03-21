@@ -581,7 +581,18 @@ export default {
       this.dialogVisible = true;
     },
     payFinalSalary(){
-
+      //弹出消息提示
+      this.$confirm('此操作将给所有员工发放工资, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        this.$confirm('工资已经发放', '提示', {
+          confirmButtonText: '确定',
+          type: 'success'
+        })
+      }).catch(() => {
+      });
     },
     initEmps(type) {
       this.loading = true;

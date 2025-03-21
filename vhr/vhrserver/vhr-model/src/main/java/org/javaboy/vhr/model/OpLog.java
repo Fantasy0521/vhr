@@ -1,5 +1,6 @@
 package org.javaboy.vhr.model;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 public class OpLog {
