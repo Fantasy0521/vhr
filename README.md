@@ -14,7 +14,9 @@
 6. RabbitMQ
 7. Spring Cache
 8. WebSocket
-9. ...
+9. 通义ai
+10. 监控技术：SkyWalking（可选配置，详情查看[skywalking.md](skywalking.md)）
+
 
 #### 前端技术栈
 
