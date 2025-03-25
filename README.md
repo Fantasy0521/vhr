@@ -1,15 +1,6 @@
-#### vhr 是一个脚手架，如需业务完整的项目，请移步这里->[TienChin](https://github.com/lenve/tienchin)
-#### 本项目已使用 SpringBoot3+Vue3 重构，地址：[https://github.com/lenve/vhr2.0](https://github.com/lenve/vhr2.0)
-
 ## 项目介绍
 
 微人事是一个前后端分离的人力资源管理系统，项目采用 SpringBoot+Vue 开发，项目加入常见的企业级应用所涉及到的技术点，例如 Redis、RabbitMQ 等。
-
-
-- 项目地址：[https://github.com/lenve/vhr](https://github.com/lenve/vhr) 
-- [项目部署视频教程（旧版）](https://mp.weixin.qq.com/s/qN01Le434FWom0c3jqiQmA)
-- [项目部署视频教程（新版）](https://mp.weixin.qq.com/s/dcJv6BIVFPnokI8nBf4IrQ)
-- [项目其他相关资料](./README_zh.md)
 
 ### 项目技术栈
 
@@ -55,8 +46,14 @@
 ![p281](https://raw.githubusercontent.com/wiki/lenve/vhr/doc/p281.png)
 
 ## 快速部署
+准备三样东西：
 
-1. clone 项目到本地 `git@github.com:lenve/vhr.git`
+- 空的 vhr 数据库
+- redis
+- rabbitmq
+
+
+1. clone 项目到本地
 2. 数据库脚本使用 Flyway 管理，**不需要手动导入数据库脚本**，只需要提前在本地 MySQL 中创建一个空的数据库 vhr，并修改项目中关于数据的配置（resources 目录下的 application.properties 文件中）即可
 3. 提前准备好 Redis，在 项目的 application.properties 文件中，将 Redis 配置改为自己的
 4. 提前准备好 RabbitMQ，在项目的 application.properties 文件中将 RabbitMQ 的配置改为自己的（**注意，RabbitMQ 需要分别修改 mailserver 和 vhrserver 的配置文件**）
@@ -83,14 +80,9 @@ npm run serve
 npm run build
 ```
 
-该命令执行成功之后，vuehr 目录下生成一个 dist 文件夹，将该文件夹中的两个文件 static 和 index.html 拷贝到 Spring Boot 项目中 resources/static/ 目录下，然后就可以像第 6 步那样直接访问了（关于前后端分离部署，大家也可以参考这个[使用 Nginx 部署前后端分离项目，解决跨域问题](https://mp.weixin.qq.com/s/C7PIck3SIPPTcA3NX3ELoQ)）。
-
-
-**步骤 7 中需要大家对 NodeJS、NPM 等有一定的使用经验，不熟悉的小伙伴可以先自行搜索学习下，推荐 [Vue 官方教程](https://cn.vuejs.org/v2/guide/)。**
 
 ## 文档
 
-文档是对项目开发过程中遇到的一些问题的详细记录，主要是为了帮助没有基础的小伙伴快速理解这个项目。
 
 1. [权限数据库设计](https://github.com/lenve/vhr/wiki/1.%E6%9D%83%E9%99%90%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1)
 2. [服务端环境搭建](https://github.com/lenve/vhr/wiki/2.%E6%9C%8D%E5%8A%A1%E7%AB%AF%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA)
@@ -103,143 +95,6 @@ npm run build
 9. [登录成功后动态加载组件](https://github.com/lenve/vhr/wiki/9.%E7%99%BB%E5%BD%95%E6%88%90%E5%8A%9F%E5%90%8E%E5%8A%A8%E6%80%81%E5%8A%A0%E8%BD%BD%E7%BB%84%E4%BB%B6)
 10. [角色资源关系管理](https://github.com/lenve/vhr/wiki/10.%E8%A7%92%E8%89%B2%E8%B5%84%E6%BA%90%E5%85%B3%E7%B3%BB%E7%AE%A1%E7%90%86)
 11. [用户角色关系管理](https://github.com/lenve/vhr/wiki/11.%E7%94%A8%E6%88%B7%E8%A7%92%E8%89%B2%E5%85%B3%E7%B3%BB%E7%AE%A1%E7%90%86)
-
-
-### 更新记录
-
-### 2018.1.10 更新
-
-本次更新版本：v20180110
-
-本次更新完成了部门管理功能，页面在 **[系统管理->基础信息设置->部门管理]**
-
->本次更新也更新了数据库脚本，小伙伴们需要重新下载数据库脚本执行。
-
-#### 相关文档：
-
-12. [部门数据库设计与存储过程编写](https://github.com/lenve/vhr/wiki/12.%E9%83%A8%E9%97%A8%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B%E7%BC%96%E5%86%99)
-13. [递归查询与存储过程调用](https://github.com/lenve/vhr/wiki/13.%E9%80%92%E5%BD%92%E6%9F%A5%E8%AF%A2%E4%B8%8E%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B%E8%B0%83%E7%94%A8)
-14. [Tree 树形控件使用要点](https://github.com/lenve/vhr/wiki/14.Tree%E6%A0%91%E5%BD%A2%E6%8E%A7%E4%BB%B6%E4%BD%BF%E7%94%A8%E8%A6%81%E7%82%B9)
-
-### 2018.1.12 更新
-
-本次更新版本：v20180112
-
-本次更新完成了职称管理和职位管理，页面在 **[系统管理->基础信息设置->职位管理]** 和 **[系统管理->基础信息设置->职称管理]** 
-
->本次更新也更新了数据库脚本，小伙伴们需要重新下载数据库脚本执行。
-
-#### 相关文档：
-
-15. [职位管理和职称管理功能介绍](https://github.com/lenve/vhr/wiki/15.%E8%81%8C%E4%BD%8D%E7%AE%A1%E7%90%86%E5%92%8C%E8%81%8C%E7%A7%B0%E7%AE%A1%E7%90%86%E5%8A%9F%E8%83%BD%E4%BB%8B%E7%BB%8D)
-16. [组件复用](https://github.com/lenve/vhr/wiki/16.%E7%BB%84%E4%BB%B6%E5%A4%8D%E7%94%A8)
-17. [[题外话]利用 git 标签回退至任意版本](https://github.com/lenve/vhr/wiki/17.%5B%E9%A2%98%E5%A4%96%E8%AF%9D%5D%E5%88%A9%E7%94%A8git%E6%A0%87%E7%AD%BE%E5%9B%9E%E9%80%80%E8%87%B3%E4%BB%BB%E6%84%8F%E7%89%88%E6%9C%AC)
-
-### 2018.1.15 更新
-
-本次更新版本：v20180115
-
-本次更新完成了员工基本信息管理，页面在 **[员工资料->基本资料]**
-
->本次更新也更新了数据库脚本，小伙伴们需要重新下载数据库脚本执行。
-
-#### 相关文档：
-
-18. [员工基本信息管理功能介绍](https://github.com/lenve/vhr/wiki/18.%E5%91%98%E5%B7%A5%E5%9F%BA%E6%9C%AC%E4%BF%A1%E6%81%AF%E7%AE%A1%E7%90%86%E5%8A%9F%E8%83%BD%E4%BB%8B%E7%BB%8D)
-19. [Spring Boot 中自定义参数绑定](https://github.com/lenve/vhr/wiki/19.SpringBoot%E4%B8%AD%E8%87%AA%E5%AE%9A%E4%B9%89%E5%8F%82%E6%95%B0%E7%BB%91%E5%AE%9A)
-
-### 2018.1.16 更新
-
-本次更新版本：v20180116
-
-本次更新完成了员工的高级搜索功能，页面在 **[员工资料->基本资料]**
-
-#### 相关文档：
-
-20. [高级搜索功能介绍](https://github.com/lenve/vhr/wiki/20.%E9%AB%98%E7%BA%A7%E6%90%9C%E7%B4%A2%E5%8A%9F%E8%83%BD%E4%BB%8B%E7%BB%8D)
-
-### 2018.1.17 更新
-
-本次更新版本：v20180117
-
-本次更新完成了员工数据的导入导出功能，即可将员工数据导出为Excel，也可以将外部Excel导入到员工数据表中，页面在 **[员工资料->基本资料]**
-
-#### 相关文档：
-
-21. [Excel 导入导出效果图](https://github.com/lenve/vhr/wiki/21.Excel%E5%AF%BC%E5%85%A5%E5%AF%BC%E5%87%BA%E6%95%88%E6%9E%9C%E5%9B%BE)
-22. [SpringMVC 文件下载的两种方式](https://github.com/lenve/vhr/wiki/22.SpringMVC%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD%E7%9A%84%E4%B8%A4%E7%A7%8D%E6%96%B9%E5%BC%8F)
-23. [POI 生成 Excel](https://github.com/lenve/vhr/wiki/23.POI%E7%94%9F%E6%88%90Excel)
-24. [axios 下载文件](https://github.com/lenve/vhr/wiki/24.axios%E4%B8%8B%E8%BD%BD%E6%96%87%E4%BB%B6)
-25. [使用 POI 实现 Excel 导入](https://github.com/lenve/vhr/wiki/25.%E4%BD%BF%E7%94%A8POI%E5%AE%9E%E7%8E%B0Excel%E5%AF%BC%E5%85%A5)
-
-### 2018.1.19 更新
-
-本次更新版本：v20180119
-
-本次更新主要实现了当管理员添加一个用户时，添加成功后，会根据该用户的邮箱自动向用户发送一封欢迎入职邮件，页面在 **[员工资料->基本资料->添加员工]** 详情可以参考下面的文档。 **注意：邮件发送需要小伙伴小伙伴自己配置授权码，配置方式参考下面的文档，配置文件在[src/main/java/org/sang/common/EmailRunnable.java](https://github.com/lenve/vhr/blob/master/hrserver/src/main/java/org/sang/common/EmailRunnable.java)** 
-
-#### 相关文档：
-
-26. [Spring Boot 中使用 Freemarker 邮件模板生成邮件](https://github.com/lenve/vhr/wiki/26.SpringBoot%E4%B8%AD%E4%BD%BF%E7%94%A8Freemarker%E9%82%AE%E4%BB%B6%E6%A8%A1%E6%9D%BF%E7%94%9F%E6%88%90%E9%82%AE%E4%BB%B6)
-27. [Java 中邮件的发送](https://github.com/lenve/vhr/wiki/27.Java%E4%B8%AD%E9%82%AE%E4%BB%B6%E7%9A%84%E5%8F%91%E9%80%81)
-28. [Spring Boot 中使用新线程发送邮件](https://github.com/lenve/vhr/wiki/28.SpringBoot%E4%B8%AD%E4%BD%BF%E7%94%A8%E6%96%B0%E7%BA%BF%E7%A8%8B%E5%8F%91%E9%80%81%E9%82%AE%E4%BB%B6)
-
-### 2018.1.25 更新
-
-本次更新版本：v20180125
-
-本次更新主要完成了工资账套管理功能，页面在 **[薪资管理->工资账套管理]**
-
->本次更新也更新了数据库脚本，小伙伴们需要重新下载数据库脚本执行。
-
-#### 相关文档：
-
-29. [工资账套管理功能介绍](https://github.com/lenve/vhr/wiki/29.%E5%B7%A5%E8%B5%84%E8%B4%A6%E5%A5%97%E7%AE%A1%E7%90%86%E5%8A%9F%E8%83%BD%E4%BB%8B%E7%BB%8D)
-
-### 2018.1.26 更新
-
-本次更新版本：v20180126
-
-本次更新主要完成了员工账套设置功能，页面在 **[薪资管理->员工账套设置]**
-
->本次更新也更新了数据库脚本，小伙伴们需要重新下载数据库脚本执行。
-
-#### 相关文档：
-
-30. [员工账套设置功能介绍](https://github.com/lenve/vhr/wiki/30.%E5%91%98%E5%B7%A5%E8%B4%A6%E5%A5%97%E8%AE%BE%E7%BD%AE%E5%8A%9F%E8%83%BD%E4%BB%8B%E7%BB%8D)
-
-### 2018.2.2 更新
-
-本次更新版本：v20180202
-
-本次更新完成了HR在线聊天功能，页面在 **[Home页->右上角铃铛->好友聊天]**
-
-#### 相关文档：
-
-31. [在线聊天功能介绍](https://github.com/lenve/vhr/wiki/31.%E5%9C%A8%E7%BA%BF%E8%81%8A%E5%A4%A9%E5%8A%9F%E8%83%BD%E4%BB%8B%E7%BB%8D)
-32. [在线聊天功能实现](https://github.com/lenve/vhr/wiki/32.%E5%9C%A8%E7%BA%BF%E8%81%8A%E5%A4%A9%E5%8A%9F%E8%83%BD%E5%AE%9E%E7%8E%B0)
-
-### 2018.2.5 更新
-
-本次更新版本：v20180205
-
-本次更新完成了管理员发送系统通知功能，页面在 **[Home页->右上角铃铛->系统通知]**
-
->本次更新也更新了数据库脚本，小伙伴们需要重新下载数据库脚本执行。
-
-#### 相关文档：
-
-33. [系统通知功能实现](https://github.com/lenve/vhr/wiki/33.%E7%B3%BB%E7%BB%9F%E9%80%9A%E7%9F%A5%E5%8A%9F%E8%83%BD%E5%AE%9E%E7%8E%B0)
-
-### 2019.12.22 更新
-
-本次更新版本：v20191222
-
-本次更新是一次规模较大的更新，整个项目的版本得到升级，同时引入了多模块、RabbitMQ 等技术栈。
-
-#### 相关文档
-
-34. [两年了，微人事项目迎来了一次重大更新](https://mp.weixin.qq.com/s/Eo2RRB6zKQuPDMWlnCHDrw)
 
 ## 其他资料
 
