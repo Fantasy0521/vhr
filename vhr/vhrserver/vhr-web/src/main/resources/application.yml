@@ -24,3 +24,12 @@ server:
 fastdfs:
   nginx:
     host: http://127.0.0.1/
+
+# 通义api配置
+tongyi:
+  # https://dashscope.console.aliyun.com/apiKey 前往这里获取apiKey进行替换
+  apiKey: sk-6825093497654a139ad19d6d7a7820ee
+  # 模型名称 测试下来速度较快的: qwen-turbo  免费且较快的 qwen2.5-coder-3b-instruct
+  model: qwen2.5-coder-3b-instruct
+  # 角色 这里可以指定模型的角色 默认 You are a helpful assistant.
+  role: You are a HR manager.

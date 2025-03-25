@@ -34,6 +34,9 @@ public class ExceptionLogAspect {
         // 执行目标方法
         Object result = joinPoint.proceed();
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+        if (attributes == null) {
+            return result;
+        }
         HttpServletRequest request = attributes.getRequest();
         // 记录操作日志
         OpLog opLog = new OpLog();

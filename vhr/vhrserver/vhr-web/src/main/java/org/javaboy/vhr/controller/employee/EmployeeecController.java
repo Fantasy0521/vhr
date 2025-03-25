@@ -2,10 +2,12 @@ package org.javaboy.vhr.controller.employee;
 
 import org.javaboy.vhr.model.Employeeec;
 import org.javaboy.vhr.model.RespBean;
+import org.javaboy.vhr.model.vo.EmployeeecVo;
 import org.javaboy.vhr.service.EmployeeecService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -41,5 +43,10 @@ public class EmployeeecController {
             return RespBean.ok("更新成功!");
         }
         return RespBean.error("更新失败!");
+    }
+
+    @GetMapping("/getEmployeeecMonthInfo")
+    public List<EmployeeecVo> getEmployeeecMonthInfo(String month) {
+        return employeeecService.getEmployeeecMonthInfo(month);
     }
 }

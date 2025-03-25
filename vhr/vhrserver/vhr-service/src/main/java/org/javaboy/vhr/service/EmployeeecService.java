@@ -2,6 +2,7 @@ package org.javaboy.vhr.service;
 
 import org.javaboy.vhr.mapper.EmployeeecMapper;
 import org.javaboy.vhr.model.Employeeec;
+import org.javaboy.vhr.model.vo.EmployeeecVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,5 +27,10 @@ public class EmployeeecService {
 
     public int updateEmployeeecById(Employeeec employeeec) {
         return employeeecMapper.updateByPrimaryKeySelective(employeeec);
+    }
+
+    public List<EmployeeecVo> getEmployeeecMonthInfo(String month) {
+        List<EmployeeecVo> employeeecVos = employeeecMapper.getEmployeeecMonthInfo(month);
+        return employeeecVos;
     }
 }

@@ -33,7 +33,7 @@
         width="50%">
       <el-form :model="employeeEc" label-width="100px">
         <el-form-item label="员工">
-          <el-select v-model="employeeEc.eid" placeholder="请选择员工">
+          <el-select v-model="employeeEc.eid" placeholder="请选择员工" filterable>
             <el-option
                 v-for="employee in employees"
                 :key="employee.id"
@@ -139,7 +139,7 @@ export default {
       })
     },
     initEmployees() {
-      this.getRequest("/employee/basic/").then(resp => {
+      this.getRequest("/employee/basic/?size=1000").then(resp => {
         if (resp) {
           this.employees = resp.data;
         }

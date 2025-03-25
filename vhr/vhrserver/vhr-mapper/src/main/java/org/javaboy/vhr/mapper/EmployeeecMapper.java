@@ -1,6 +1,7 @@
 package org.javaboy.vhr.mapper;
 
 import org.javaboy.vhr.model.Employeeec;
+import org.javaboy.vhr.model.vo.EmployeeecVo;
 
 import java.util.List;
 
@@ -18,4 +19,6 @@ public interface EmployeeecMapper {
     int updateByPrimaryKeySelective(Employeeec record);
 
     int updateByPrimaryKey(Employeeec record);
+
+    List<EmployeeecVo> getEmployeeecMonthInfo(String month);
 }
